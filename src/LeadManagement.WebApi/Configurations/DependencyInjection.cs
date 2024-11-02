@@ -1,4 +1,6 @@
-﻿using LeadManagement.Infrastructure.Context;
+﻿using LeadManagement.Domain.Interfaces.Repositories;
+using LeadManagement.Infrastructure.Context;
+using LeadManagement.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
 namespace LeadManagement.WebApi.Configurations;
@@ -7,6 +9,7 @@ public static class DependencyInjection
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
+        services.AddScoped<IRepository, Repository>();
         return services;
     }
 
