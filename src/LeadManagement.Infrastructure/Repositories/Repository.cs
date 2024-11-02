@@ -2,6 +2,7 @@
 using LeadManagement.Domain.Interfaces.Repositories;
 using LeadManagement.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
+using System.Linq.Expressions;
 
 namespace LeadManagement.Infrastructure.Repositories;
 
@@ -17,6 +18,14 @@ public class Repository : IRepository
     public async Task<List<T>> GetAllAsync<T>() where T : Entity
     {
         return await _context.Set<T>().ToListAsync();
+    }
+    public IQueryable<T> AsQueryable<T>(Expression<Func<T, bool>> filter = null) where T : Entity
+    {
+        var query = _context.Set<T>().AsQueryable();
+
+        if (filter != null) query = query.Where(filter);
+
+        return query;
     }
 
     public async Task<T> CreateAsync<T>(T entity) where T : Entity
@@ -40,4 +49,5 @@ public class Repository : IRepository
         _context.Set<T>().Remove(entity);
         await _context.SaveChangesAsync();
     }
+
 }
