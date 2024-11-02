@@ -8,6 +8,4 @@ public class Job : Entity
     public bool Accepted { get; set; }
     public int JobCategoryId { get; set; }
     public JobCategory JobCategory { get; set; }
-    public int LeadId { get; set; }
-    public Lead Lead { get; set; }
 }
