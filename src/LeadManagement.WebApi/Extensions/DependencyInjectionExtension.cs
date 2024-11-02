@@ -1,11 +1,13 @@
-﻿using LeadManagement.Domain.Interfaces.Repositories;
+﻿using LeadManagement.Application.Interfaces.Services;
+using LeadManagement.Application.Services;
+using LeadManagement.Domain.Interfaces.Repositories;
 using LeadManagement.Infrastructure.Context;
 using LeadManagement.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 
-namespace LeadManagement.WebApi.Configurations;
+namespace LeadManagement.WebApi.Extensions;
 
-public static class DependencyInjection
+public static class DependencyInjectionExtension
 {
     public static IServiceCollection AddApplication(this IServiceCollection services)
     {
@@ -15,6 +17,7 @@ public static class DependencyInjection
 
     public static IServiceCollection AddARepository(this IServiceCollection services)
     {
+        services.AddScoped<IJobCategoryService, JobCategoryService>();
         return services;
     }
 
