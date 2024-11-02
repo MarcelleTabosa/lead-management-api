@@ -1,7 +1,6 @@
 ﻿using LeadManagement.Application.Interfaces.Services;
+using LeadManagement.Application.Models.Requests;
 using LeadManagement.Application.Models.Requests.JobCategory;
-using LeadManagement.Domain.Entities;
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeadManagement.WebApi.Controllers
@@ -31,9 +30,9 @@ namespace LeadManagement.WebApi.Controllers
         [HttpGet("{id}")]
         public async Task<IActionResult> GetCategoryById([FromRoute] int id)
         {
-            var jobCategoryIdRequest = new JobCategoryIdRequest { Id = id };
+            var idRequest = new IdRequest { Id = id };
 
-            var result = await _jobCategoryService.GetByIdAsync(jobCategoryIdRequest);
+            var result = await _jobCategoryService.GetByIdAsync(idRequest);
 
             if (!result.IsSuccess)
                 return NotFound(result.Error);
@@ -55,9 +54,9 @@ namespace LeadManagement.WebApi.Controllers
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateCategory([FromRoute] int id, [FromBody] UpdateJobCategoryRequest request)
         {
-            var jobCategoryIdRequest = new JobCategoryIdRequest { Id = id };
+            var idRequest = new IdRequest { Id = id };
 
-            var result = await _jobCategoryService.UpdateJobCategoryAsync(jobCategoryIdRequest, request);
+            var result = await _jobCategoryService.UpdateJobCategoryAsync(idRequest, request);
 
             if (!result.IsSuccess)
                 return NotFound(result.Error);
@@ -68,9 +67,9 @@ namespace LeadManagement.WebApi.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteCategory([FromRoute] int id)
         {
-            var jobCategoryIdRequest = new JobCategoryIdRequest { Id = id };
+            var idRequest = new IdRequest { Id = id };
 
-            var result = await _jobCategoryService.DeleteJobCategoryAsync(jobCategoryIdRequest);
+            var result = await _jobCategoryService.DeleteJobCategoryAsync(idRequest);
 
             if (!result.IsSuccess)
                 return NotFound(result.Error);
