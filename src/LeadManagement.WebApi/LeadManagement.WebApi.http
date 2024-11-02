@@ -1,0 +1,6 @@
+@LeadManagement.WebApi_HostAddress = http://localhost:5261
+
+GET {{LeadManagement.WebApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
