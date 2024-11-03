@@ -1,6 +1,7 @@
 ﻿using FluentValidation;
 using LeadManagement.Application.Interfaces.Services;
 using LeadManagement.Application.Models;
+using LeadManagement.Application.Models.Requests;
 using LeadManagement.Application.Models.Requests.JobCategory;
 using LeadManagement.Domain.Entities;
 using LeadManagement.Domain.Interfaces.Repositories;
@@ -13,18 +14,18 @@ public class JobCategoryService : IJobCategoryService
     private readonly IRepository _repository;
     private readonly IValidator<CreateJobCategoryRequest> _createJobCategoryValidator;
     private readonly IValidator<UpdateJobCategoryRequest> _updateJobCategoryValidator;
-    private readonly IValidator<JobCategoryIdRequest> _jobCategoryIdValidator;
+    private readonly IValidator<IdRequest> _idValidator;
 
     public JobCategoryService(
         IRepository repository, 
         IValidator<CreateJobCategoryRequest> createJobCategoryValidator,
         IValidator<UpdateJobCategoryRequest> updateJobCategoryValidator,
-        IValidator<JobCategoryIdRequest> jobCategoryIdValidator)
+        IValidator<IdRequest> idValidator)
     {
         _repository = repository;
         _createJobCategoryValidator = createJobCategoryValidator;
         _updateJobCategoryValidator = updateJobCategoryValidator;
-        _jobCategoryIdValidator = jobCategoryIdValidator;
+        _idValidator = idValidator;
     }
 
     public async Task<Result> GetJobCategoriesAsync()
@@ -32,13 +33,13 @@ public class JobCategoryService : IJobCategoryService
         return Result.Success(await _repository.GetAllAsync<JobCategory>());
     }
 
-    public async Task<Result> GetByIdAsync(JobCategoryIdRequest request)
+    public async Task<Result> GetByIdAsync(IdRequest id)
     {
-        var validationResult = await _jobCategoryIdValidator.ValidateAsync(request);
+        var validationResult = await _idValidator.ValidateAsync(id);
         if (!validationResult.IsValid) return Result.Failure(validationResult.Errors.First().ErrorMessage);
 
-        var response = await _repository.AsQueryable<JobCategory>(x => x.Id == request.Id).SingleOrDefaultAsync();
-        if (response == null) return Result.Failure("Job Category not found.");
+        var response = await _repository.AsQueryable<JobCategory>(x => x.Id == id.Id).SingleOrDefaultAsync();
+        if (response == null) return Result.Failure("Category not found.");
 
         return Result.Success(response);
     }
@@ -56,29 +57,28 @@ public class JobCategoryService : IJobCategoryService
         return Result.Success(response);
     }
 
-    public async Task<Result> UpdateJobCategoryAsync(JobCategoryIdRequest jobCategoryId, UpdateJobCategoryRequest request)
+    public async Task<Result> UpdateJobCategoryAsync(IdRequest id, UpdateJobCategoryRequest request)
     {
-        var validationResult = await _jobCategoryIdValidator.ValidateAsync(jobCategoryId);
+        var validationResult = await _idValidator.ValidateAsync(id);
         if (validationResult.IsValid) validationResult = await _updateJobCategoryValidator.ValidateAsync(request);
 
         if (!validationResult.IsValid) return Result.Failure(validationResult.Errors.First().ErrorMessage);
 
-        var response = await GetByIdAsync(jobCategoryId);
+        var response = await GetByIdAsync(id);
         if (!response.IsSuccess) return Result.Failure(response.Error);
 
         var category = (JobCategory) response.Value;
 
         category.Category = request.Category;
-        category.CreatedIn = DateTime.Now;
 
         var result = await _repository.UpdateAsync<JobCategory>(category);
 
         return Result.Success(result);
     }
 
-    public async Task<Result> DeleteJobCategoryAsync(JobCategoryIdRequest request)
+    public async Task<Result> DeleteJobCategoryAsync(IdRequest request)
     {
-        var validationResult = await _jobCategoryIdValidator.ValidateAsync(request);
+        var validationResult = await _idValidator.ValidateAsync(request);
         if (!validationResult.IsValid) return Result.Failure(validationResult.Errors.First().ErrorMessage);
 
         var response = await GetByIdAsync(request);

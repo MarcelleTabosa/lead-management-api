@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
 using LeadManagement.Application.Models.Requests.JobCategory;
 
-namespace LeadManagement.Application.Validators;
+namespace LeadManagement.Application.Validators.JobCategory;
 
 public class CreateJobCategoryValidator : AbstractValidator<CreateJobCategoryRequest>
 {

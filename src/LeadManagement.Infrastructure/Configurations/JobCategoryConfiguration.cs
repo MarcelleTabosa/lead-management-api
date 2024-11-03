@@ -9,6 +9,6 @@ public class JobCategoryConfiguration : IEntityTypeConfiguration<JobCategory>
     public void Configure(EntityTypeBuilder<JobCategory> builder)
     {
         builder.ToTable("JobCategories");
-        builder.Property("Category").IsRequired().HasMaxLength(20);
+        builder.Property(c => c.Category).IsRequired().HasMaxLength(20);
     }
 }
