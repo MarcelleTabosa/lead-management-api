@@ -6,6 +6,8 @@ builder.Services.AddApplication();
 builder.Services.AddARepository();
 builder.Services.AddContext(builder.Configuration);
 
+builder.Services.AddCorsService();
+
 builder.Services.AddControllers();
 builder.Services.AddCustomSwagger();
 
@@ -16,6 +18,8 @@ var app = builder.Build();
 app.UseHttpsRedirection();
 
 app.UseRouting();
+
+app.UseCors("AllowAllOrigins");
 
 app.UseAuthorization();
 
