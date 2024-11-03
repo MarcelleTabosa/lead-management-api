@@ -33,6 +33,16 @@ public class JobService : IJobService
         return Result.Success(await _repository.GetAllAsync<Job>());
     }
 
+    public async Task<Result> GetAllWithRelatedAsync()
+    {
+        var result = await _repository.GetAllWithRelatedAsync<Job>(
+            j => j.JobCategory,
+            j => j.Lead
+        );
+
+        return Result.Success(result);
+    }
+
     public async Task<Result> GetByIdAsync(IdRequest id)
     {
         var validationResult = await _idValidator.ValidateAsync(id);

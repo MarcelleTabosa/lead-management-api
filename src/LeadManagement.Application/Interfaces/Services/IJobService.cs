@@ -11,4 +11,5 @@ public interface IJobService
     Task<Result> CreateJobAsync(CreateJobRequest request);
     Task<Result> UpdateJobAsync(IdRequest id, UpdateJobRequest request);
     Task<Result> DeleteJobAsync(IdRequest id);
+    Task<Result> GetAllWithRelatedAsync();
 }
