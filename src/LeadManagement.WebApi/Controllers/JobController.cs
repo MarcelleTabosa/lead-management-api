@@ -1,6 +1,7 @@
 ﻿using LeadManagement.Application.Interfaces.Services;
 using LeadManagement.Application.Models.Requests;
 using LeadManagement.Application.Models.Requests.Job;
+using LeadManagement.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeadManagement.WebApi.Controllers
@@ -20,6 +21,17 @@ namespace LeadManagement.WebApi.Controllers
         public async Task<IActionResult> GetAllJobs()
         {
             var result = await _jobService.GetJobsAsync();
+
+            if (!result.IsSuccess)
+                return BadRequest(result.Error);
+
+            return Ok(result.Value);
+        }
+
+        [HttpGet("relationships")]
+        public async Task<IActionResult> GetAllWithRelatedAsync()
+        {
+            var result = await _jobService.GetAllWithRelatedAsync();
 
             if (!result.IsSuccess)
                 return BadRequest(result.Error);

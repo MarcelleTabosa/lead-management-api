@@ -10,4 +10,5 @@ public interface IRepository
     Task<T> CreateAsync<T>(T entity) where T : Entity;
     Task<T> UpdateAsync<T>(T entity) where T : Entity;
     Task DeleteAsync<T>(T entity) where T : Entity;
+    Task<List<T>> GetAllWithRelatedAsync<T>(params Expression<Func<T, object>>[] includeProperties) where T : Entity;
 }

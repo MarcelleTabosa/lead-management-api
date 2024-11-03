@@ -50,4 +50,16 @@ public class Repository : IRepository
         await _context.SaveChangesAsync();
     }
 
+    public async Task<List<T>> GetAllWithRelatedAsync<T>(params Expression<Func<T, object>>[] includeProperties) where T : Entity
+    {
+        IQueryable<T> query = _context.Set<T>();
+
+        foreach (var includeProperty in includeProperties)
+        {
+            query = query.Include(includeProperty);
+        }
+
+        return await query.ToListAsync();
+    }
+
 }
