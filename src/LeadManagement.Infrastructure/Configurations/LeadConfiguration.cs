@@ -9,8 +9,8 @@ public class LeadConfiguration : IEntityTypeConfiguration<Lead>
     public void Configure(EntityTypeBuilder<Lead> builder)
     {
         builder.ToTable("Leads");
-        builder.Property("Name").IsRequired().HasMaxLength(100);
-        builder.Property("Email").IsRequired().HasMaxLength(100);
-        builder.Property("PhoneNumber").IsRequired().HasMaxLength(15);
+        builder.Property(l => l.Name).IsRequired().HasMaxLength(100);
+        builder.Property(l => l.Email).IsRequired().HasMaxLength(100);
+        builder.Property(l => l.PhoneNumber).IsRequired().HasMaxLength(15);
     }
 }

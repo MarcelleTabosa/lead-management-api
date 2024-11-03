@@ -18,6 +18,8 @@ public static class DependencyInjectionExtension
     public static IServiceCollection AddARepository(this IServiceCollection services)
     {
         services.AddScoped<IJobCategoryService, JobCategoryService>();
+        services.AddScoped<IJobService, JobService>();
+        services.AddScoped<ILeadService, LeadService>();
         return services;
     }
 

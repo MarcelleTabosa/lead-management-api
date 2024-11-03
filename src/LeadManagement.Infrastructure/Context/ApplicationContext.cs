@@ -6,7 +6,7 @@ namespace LeadManagement.Infrastructure.Context;
 
 public class ApplicationDbContext : DbContext
 {
-    public DbSet<JobCategory> Leads { get; set; }
+    public DbSet<Lead> Leads { get; set; }
     public DbSet<JobCategory> JobCategories { get; set; }
     public DbSet<Job> Jobs { get; set; }
 
