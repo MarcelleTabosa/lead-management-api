@@ -1,7 +1,6 @@
 ﻿using LeadManagement.Application.Interfaces.Services;
 using LeadManagement.Application.Models.Requests;
 using LeadManagement.Application.Models.Requests.Job;
-using LeadManagement.Application.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LeadManagement.WebApi.Controllers

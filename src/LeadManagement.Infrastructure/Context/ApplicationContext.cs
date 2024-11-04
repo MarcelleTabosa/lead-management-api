@@ -12,6 +12,11 @@ public class ApplicationDbContext : DbContext
 
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlServer("Server=127.0.0.1,1433;Database=LeadManagementBD;User ID=sa;Password=Sql@2022;Trusted_Connection=False; TrustServerCertificate=True;");
+    }
+
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.ApplyConfiguration(new LeadConfiguration());
