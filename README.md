@@ -36,8 +36,7 @@ Bem-vindo(a) ao projeto de Gerenciamento de Leads em .NET! Aqui, você encontra 
      ```bash
      dotnet ef database update
      ```
-
-Nota: Você não precisa criar as migrations pois estão disponíveis na pasta Migrations no projeto de Infraestrutura.
+> **Observação:** Você não precisa criar as migrations pois estão disponíveis na pasta Migrations no projeto de Infraestrutura.
 
 ## Executando o Projeto
 
