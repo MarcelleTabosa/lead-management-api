@@ -10,6 +10,15 @@ Bem-vindo(a) ao projeto de Gerenciamento de Leads em .NET! Aqui, você encontra 
 
 > **Observação:** Estamos usando o .NET SDK 8.0, então vale conferir se você está com essa versão ou superior pra evitar conflitos.
 
+## Configuração do Ambiente
+
+1. **Clone o repositório:**
+
+   ```bash
+   git clone https://github.com/MarcelleTabosa/lead-management-api.git
+   cd repositorio
+   ```
+
 ## Configuração do Banco de Dados
 
 1. **Crie uma instância SQL Server:**
